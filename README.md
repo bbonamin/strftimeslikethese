@@ -19,14 +19,20 @@ You need:
 in the template dir
 
 ```bash
+brew install overmind
 rbenv install 3.2.0-preview1
-gem install foreman
+
 bundle install
 bundle exec rake bormashino:download
+bundle exec rake "bormashino:digest[tmp]"
 (cd src && bundle install)
 npm install
-./bin/dev
+
+bin/dev # it will fail, stop with Ctrl+C. Maybe if tmp/ is created beforehand it could be fixed?
+bundle exec rake "bormashino:digest[tmp]"
+
+bin/dev # now it should work OK.
 ```
 
-You can see the app at http://localhost:5000/.
+You can see the app at http://localhost:5431/.
 App codes are basically in `src/`.

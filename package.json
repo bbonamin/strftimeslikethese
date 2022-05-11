@@ -6,7 +6,7 @@
   },
   "source": "js/index.html",
   "scripts": {
-    "dev": "parcel --dist-dir tmp/",
+    "dev": "parcel --port 5431 --dist-dir tmp/",
     "build": "bundle exec rake && cp tmp/ruby.*.wasm dist/ && parcel build --no-scope-hoist",
     "deploy": "(cd dist && vercel)",
     "deploy:prod": "(cd dist && vercel --prod)"
