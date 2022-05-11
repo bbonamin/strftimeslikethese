@@ -1,0 +1,25 @@
+<div>
+  <h1>Hello <%= @world %>!</h1>
+  <p><a href="/link">link</a></p>
+  <div>
+    <form action="/form-submit" method="put">
+      <input name="value" />
+      <input type="submit" value="submit">
+    </form>
+  </div>
+  <br>
+  <div>
+    <form action="/destroy" method="delete">
+      <label>
+        <input type="checkbox" data-bormashino-submit-on="click">
+        click to submit the 2nd form
+      </label>
+      <p>"data-bormashino-submit-on" enables you to submit the parent form with the event.</p>
+    </form>
+  </div>
+
+  <div>
+    <p><a href="/undefined">undefined route</a></p>
+    You'll get the error from Sinatra.
+  </div>
+</div>

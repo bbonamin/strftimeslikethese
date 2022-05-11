@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.4.1",
+    "prettier": "^2.6.2"
+  },
+  "source": "js/index.html",
+  "scripts": {
+    "dev": "parcel --dist-dir tmp/",
+    "build": "bundle exec rake && cp tmp/ruby.*.wasm dist/ && parcel build --no-scope-hoist",
+    "deploy": "(cd dist && vercel)",
+    "deploy:prod": "(cd dist && vercel --prod)"
+  },
+  "dependencies": {
+    "bormashino": "^0.1.3"
+  }
+}
