@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-guard :rubocop, cli: ['-A'] do
-  watch(/.+\.rb$/)
-  watch('Gemfile')
-  watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
-end
-
 guard :rake, task: :default do
   watch(%r{src/.+})
 end

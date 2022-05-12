@@ -1,25 +1,164 @@
-<div>
-  <h1>Hello <%= @world %>!</h1>
-  <p><a href="/link">link</a></p>
-  <div>
-    <form action="/form-submit" method="put">
-      <input name="value" />
-      <input type="submit" value="submit">
+<div class="row">
+  <div class="col-lg-8">
+    <h1 class>Strftimes Like These</h1>
+    <div class="mt-3 mb-4">
+      <p class="text-muted">Quick and easy date/time formatting for ruby... offline... in WASM.</p>
+      <p class="text-muted">This site runs <i>Ruby</i> time formatting without a backend. Check the Network tab!</p>
+    </div>
+    <form id="strformat-form" class="mb-3 row row-cols-lg-auto g-4 align-items-end" action="/" method="put">
+      <div class="col-sm-5 form-group">
+        <label for="datetime" class="form-label">Date Time</label>
+        <input
+          name="datetime"
+          class="form-control"
+          value="<%= @datetime %>"
+          data-bormashino-submit-on="change"
+        />
+      </div>
+      <div class="col-sm-5 form-group">
+        <label for="strformat" class="form-label text-info fw-bold">Format</label>
+        <input
+          name="strformat"
+          class="form-control text-info fw-bold border-info shadow-sm"
+          <%# style="color:var(--bs-warning); border-color:var(--bs-warning)" %>
+          value="<%= @strformat %>"
+          data-bormashino-submit-on="change"
+        />
+      </div>
+      <input type="submit" value="Go" class="col-sm-2 btn btn-info text-white fw-bold">
     </form>
-  </div>
-  <br>
-  <div>
-    <form action="/destroy" method="delete">
-      <label>
-        <input type="checkbox" data-bormashino-submit-on="click">
-        click to submit the 2nd form
-      </label>
-      <p>"data-bormashino-submit-on" enables you to submit the parent form with the event.</p>
-    </form>
-  </div>
+    <div class="mb-4 card card-body bg-light text-center">
+      <code class="h4 text-secondary">
+        <%= @strftime_result %>
+      </code>
+        </div>
+        <ul class="nav nav-tabs" id="navTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="presets-tab" data-bs-toggle="tab" data-bs-target="#presets" type="button" role="tab" aria-controls="home" aria-selected="true">Presets</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="docs-tab" data-bs-toggle="tab" data-bs-target="#docs" type="button" role="tab" aria-controls="profile" aria-selected="false">Docs</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ruby-wasm-tab" data-bs-toggle="tab" data-bs-target="#ruby-wasm" type="button" role="tab" aria-controls="contact" aria-selected="false">Ruby WASM</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="navTabsContent">
+          <div class="tab-pane fade show active py-3" id="presets" role="tabpanel" aria-labelledby="presets-tab">
+            <% App::PRESETS.each_pair do |id, strformat|%>
+              <div class="form-check">
+                <label class="form-check-label" for="<%= id %>">
+                  <input class="form-check-input" type="radio" name="strformat" id="<%= id %>" value="<%= strformat %>" <%= "checked" if strformat == @strformat%>>
+                  <%= Time.parse(@datetime).strftime(strformat) %>
+                </label>
+              </div>
+            <% end %>
+          </div>
+          <div class="tab-pane fade py-3" id="docs" role="tabpanel" aria-labelledby="docs-tab">
+            <small class="d-block mb-2"> Sourced from <a href="https://ruby-doc.org/core-3.1.2/Time.html#method-i-strftime">ruby-doc.org</a></small>
+            <pre>
+Date (Year, Month, Day):
+  %Y - Year with century if provided, will pad result at least 4 digits.
+          -0001, 0000, 1995, 2009, 14292, etc.
+  %C - year / 100 (rounded down such as 20 in 2009)
+  %y - year % 100 (00..99)
 
-  <div>
-    <p><a href="/undefined">undefined route</a></p>
-    You'll get the error from Sinatra.
+  %m - Month of the year, zero-padded (01..12)
+          %_m  blank-padded ( 1..12)
+          %-m  no-padded (1..12)
+  %B - The full month name (``January'')
+          %^B  uppercased (``JANUARY'')
+  %b - The abbreviated month name (``Jan'')
+          %^b  uppercased (``JAN'')
+  %h - Equivalent to %b
+
+  %d - Day of the month, zero-padded (01..31)
+          %-d  no-padded (1..31)
+  %e - Day of the month, blank-padded ( 1..31)
+
+  %j - Day of the year (001..366)
+
+Time (Hour, Minute, Second, Subsecond):
+  %H - Hour of the day, 24-hour clock, zero-padded (00..23)
+  %k - Hour of the day, 24-hour clock, blank-padded ( 0..23)
+  %I - Hour of the day, 12-hour clock, zero-padded (01..12)
+  %l - Hour of the day, 12-hour clock, blank-padded ( 1..12)
+  %P - Meridian indicator, lowercase (``am'' or ``pm'')
+  %p - Meridian indicator, uppercase (``AM'' or ``PM'')
+
+  %M - Minute of the hour (00..59)
+
+  %S - Second of the minute (00..60)
+
+  %L - Millisecond of the second (000..999)
+       The digits under millisecond are truncated to not produce 1000.
+  %N - Fractional seconds digits, default is 9 digits (nanosecond)
+          %3N  millisecond (3 digits)
+          %6N  microsecond (6 digits)
+          %9N  nanosecond (9 digits)
+          %12N picosecond (12 digits)
+          %15N femtosecond (15 digits)
+          %18N attosecond (18 digits)
+          %21N zeptosecond (21 digits)
+          %24N yoctosecond (24 digits)
+       The digits under the specified length are truncated to avoid
+       carry up.
+
+Time zone:
+  %z - Time zone as hour and minute offset from UTC (e.g. +0900)
+          %:z - hour and minute offset from UTC with a colon (e.g. +09:00)
+          %::z - hour, minute and second offset from UTC (e.g. +09:00:00)
+  %Z - Abbreviated time zone name or similar information.  (OS dependent)
+
+Weekday:
+  %A - The full weekday name (``Sunday'')
+          %^A  uppercased (``SUNDAY'')
+  %a - The abbreviated name (``Sun'')
+          %^a  uppercased (``SUN'')
+  %u - Day of the week (Monday is 1, 1..7)
+  %w - Day of the week (Sunday is 0, 0..6)
+
+ISO 8601 week-based year and week number:
+The first week of YYYY starts with a Monday and includes YYYY-01-04.
+The days in the year before the first week are in the last week of
+the previous year.
+  %G - The week-based year
+  %g - The last 2 digits of the week-based year (00..99)
+  %V - Week number of the week-based year (01..53)
+
+Week number:
+The first week of YYYY that starts with a Sunday or Monday (according to %U
+or %W). The days in the year before the first week are in week 0.
+  %U - Week number of the year. The week starts with Sunday. (00..53)
+  %W - Week number of the year. The week starts with Monday. (00..53)
+
+Seconds since the Epoch:
+  %s - Number of seconds since 1970-01-01 00:00:00 UTC.
+
+Literal string:
+  %n - Newline character (\n)
+  %t - Tab character (\t)
+  %% - Literal ``%'' character
+
+Combination:
+  %c - date and time (%a %b %e %T %Y)
+  %D - Date (%m/%d/%y)
+  %F - The ISO 8601 date format (%Y-%m-%d)
+  %v - VMS date (%e-%^b-%4Y)
+  %x - Same as %D
+  %X - Same as %T
+  %r - 12-hour time (%I:%M:%S %p)
+  %R - 24-hour time (%H:%M)
+  %T - 24-hour time (%H:%M:%S)
+          </pre>
+          </div>
+          <div class="tab-pane fade py-3" id="ruby-wasm" role="tabpanel" aria-labelledby="ruby-wasm-tab">
+            <p>Ruby WASM was first <a href="https://www.ruby-lang.org/en/news/2022/04/03/ruby-3-2-0-preview1-released/">introduced in Ruby 3.2.0 Preview 1</a>.
+            </div>
+          </div>
+          <div class="my-2 g-2">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
