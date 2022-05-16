@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/bbonamin/bormashino.git
-  revision: c3e0b7f40fa1000a84e053c029b7cfd941a3de85
-  branch: macos-compatibility
-  specs:
-    bormashino (0.1.4)
-      json_pure (~> 2.6, >= 2.6.1)
-      ruby2_keywords (= 0.0.4)
-      sinatra (~> 2.2)
-
-GIT
   remote: https://github.com/rubyist/guard-rake.git
   revision: 3138496c512753bcbc83d13af08b7b5ad0538ee7
   ref: 3138496c512753bcbc83d13af08b7b5ad0538ee7
@@ -22,6 +12,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    bormashino (0.1.7)
+      json_pure (~> 2.6, >= 2.6.1)
+      os (~> 1.1, >= 1.1.4)
+      ruby2_keywords (= 0.0.4)
+      sinatra (~> 2.2)
     coderay (1.1.3)
     diff-lcs (1.5.0)
     ffi (1.15.5)
@@ -46,7 +41,7 @@ GEM
     guard-shell (0.7.2)
       guard (>= 2.0.0)
       guard-compat (~> 1.0)
-    json_pure (2.6.1)
+    json_pure (2.6.2)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -58,6 +53,7 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    os (1.1.4)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -115,7 +111,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bormashino!
+  bormashino
   guard
   guard-rake!
   guard-rspec

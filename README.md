@@ -10,8 +10,6 @@ This repository was generated from the brilliant [bormashino-app-template](https
 
 Much of the work was based not only from the template above, but also in keyasuda's other bormashino apps, like https://github.com/keyasuda/bormashino-todomvc.
 
-These projects depend on the [bormashino gem](https://github.com/keyasuda/bormashino), which as of this writing only works in Linux, hence why [I've forked it to make it work in my M1 Macbook Air](https://github.com/keyasuda/bormashino/compare/main...bbonamin:macos-compatibility?expand=1). It's likely that updating the Gemfile in this project to not use the fork will allow building in Linux.
-
 ## Prerequisites
 
 - rbenv + ruby-build
